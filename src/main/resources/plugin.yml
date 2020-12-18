@@ -1,0 +1,7 @@
+name: ExamplePlugin
+version: ${project.version}
+main: com.xanderforrest.exampleplugin.ExamplePlugin
+api-version: 1.16
+prefix: <XF>
+description: An example plugin to test out the Paper API
+website: xanderforrest.com
