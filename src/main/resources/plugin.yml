@@ -1,7 +1,7 @@
 name: ExamplePlugin
 version: ${project.version}
-main: com.xanderforrest.exampleplugin.ExamplePlugin
+main: com.xanderforrest.AgeVerification.AgeVerification
 api-version: 1.16
-prefix: <XF>
-description: An example plugin to test out the Paper API
+prefix: XF-AgeVerification
+description: A plugin that freezes a player until they've confirmed they're over 16.
 website: xanderforrest.com

@@ -27,24 +27,30 @@ public class MyListener implements Listener {
     @EventHandler
     public void chatEvent(AsyncPlayerChatEvent event) {
         if (plugin.getConfig().getBoolean("frozen." + event.getPlayer().getUniqueId())) {
+            event.setCancelled(true);
             String message = event.getMessage();
             int age;
             try {
                 age = Integer.parseInt(message);
             } catch (NumberFormatException e) {
                 event.getPlayer().sendMessage(ChatColor.RED + "Please format your response as just your age (e.g 21)");
-                event.setCancelled(true);
                 return;
             }
 
-            if (age <= 16) {
+            if (age < 16) {
                 Bukkit.getBanList(BanList.Type.NAME).addBan(event.getPlayer().getName(), "You must be over 16 to join this server.", null, "Age verification plugin");
+
+                Bukkit.getScheduler().runTask(plugin, new Runnable() {
+                    public void run() {
+                        event.getPlayer().kickPlayer("You must be over 16 to join this server.");
+                    }
+                });
+
+                Bukkit.broadcastMessage(ChatColor.YELLOW + event.getPlayer().getName() + " was banned for being under 16.");
             } else {
                 plugin.getConfig().set("frozen." + event.getPlayer().getUniqueId(), false);
                 event.getPlayer().sendMessage(ChatColor.GREEN + "You are no longer frozen!");
             }
-
-            event.setCancelled(true);
         }
     }
 
