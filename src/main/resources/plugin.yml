@@ -1,4 +1,4 @@
-name: ExamplePlugin
+name: AgeVerification
 version: ${project.version}
 main: com.xanderforrest.AgeVerification.AgeVerification
 api-version: 1.16
