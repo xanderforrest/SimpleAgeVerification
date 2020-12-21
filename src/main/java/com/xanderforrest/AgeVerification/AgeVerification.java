@@ -17,6 +17,8 @@ public final class AgeVerification extends JavaPlugin {
         getLogger().info("Plugin enabled.");
 
         config.options().copyDefaults(true);
+        config.addDefault("verification-question", "Welcome to the server! How old are you? (e.g. 21)");
+        config.addDefault("test-old-players", false);
         saveConfig();
 
         getServer().getPluginManager().registerEvents(new MyListener(this), this);

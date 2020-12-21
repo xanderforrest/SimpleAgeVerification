@@ -19,13 +19,19 @@ public class MyListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        if (!event.getPlayer().hasPlayedBefore()) {
-            event.getPlayer().sendMessage(ChatColor.BLUE + "Welcome to Craft A Cow! How old are you?");
+        if (event.getPlayer().hasPlayedBefore() & plugin.getConfig().getBoolean("test-old-players")) {
+
+            event.getPlayer().sendMessage(ChatColor.BLUE +
+                    plugin.getConfig().getString("verification-question"));
+
             plugin.getConfig().addDefault("frozen." + event.getPlayer().getUniqueId(), true);
             plugin.unverifiedCache.put(event.getPlayer().getUniqueId().toString(), true);
+
         } else { // catch players who leave and rejoin to avoid verifying age
+
             plugin.unverifiedCache.put(event.getPlayer().getUniqueId().toString(),
                     plugin.getConfig().getBoolean("frozen." + event.getPlayer().getUniqueId()));
+
         }
     }
 
