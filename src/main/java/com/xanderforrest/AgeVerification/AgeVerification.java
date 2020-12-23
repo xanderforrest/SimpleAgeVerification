@@ -3,25 +3,22 @@ package com.xanderforrest.AgeVerification;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+import java.util.HashSet;
 
 public final class AgeVerification extends JavaPlugin {
-    final FileConfiguration config = this.getConfig();
-    final Map<String, Boolean> unverifiedCache = new HashMap<>();
-
+    final FileConfiguration config = getConfig();
+    final Set<UUID> unverified = new HashSet<>();
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
         getLogger().info("Plugin enabled.");
 
         config.options().copyDefaults(true);
-        config.addDefault("verification-question", "Welcome to the server! How old are you? (e.g. 21)");
-        config.addDefault("test-old-players", false);
         saveConfig();
 
-        getServer().getPluginManager().registerEvents(new MyListener(this), this);
+        getServer().getPluginManager().registerEvents(new EventListener(this), this);
     }
 
     @Override
